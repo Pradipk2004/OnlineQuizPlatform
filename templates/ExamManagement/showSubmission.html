@@ -1,0 +1,45 @@
+{% extends 'UserManagement/user_dash_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+    <center><h2> Submitted Answers </h2></center>
+    <br>
+    <div class="row row-cols-1 row-cols-md-2">
+    {% for answer in answers %}
+        <div class="col mb-4">
+        <div class="card shadow-sm" style="border-radius: 10px; margin: 10px">
+        <div class="card-body">
+            <h5 class="card-title">{{ answer.exam.exam_title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ answer.examinee.user.get_full_name }}</h6>
+            <p class="card-text">
+            Date : {{ answer.exam.exam_date_time }}<br>
+            Full Marks : {{ answer.exam.exam_marks }}<br>
+            Answer Script: <a class="text-primary" href="{{ answer.answer.url}} "> Download</a><br>
+            {% if answer.done_late %}
+                <a style="color:#bd2130;font-weight: bold">Done Late</a><br>
+            {% endif %}
+            {% if answer.graded %}
+                <a style="color: #28a745;font-weight: bold">Graded</a>
+            {% else %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{ form|crispy }}
+                    <input type="hidden" name="exm_id" value="{{ answer.exam.id }}">
+                    <input type="hidden" name="examinee_id" value="{{ answer.examinee.id }}">
+                    <input type="submit">
+                </form>
+                <a style="color:coral ;font-weight: bold">Not Graded</a>
+            {% endif %}
+            </p>
+        </div>
+        </div>
+        </div>
+    {% endfor %}
+
+
+
+
+    </div>
+    </div>
+
+{% endblock content %}

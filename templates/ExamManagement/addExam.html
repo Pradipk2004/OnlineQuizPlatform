@@ -1,0 +1,34 @@
+{% extends 'UserManagement/user_dash_base.html' %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+
+
+    <div class="container align-items-center col-md-4">
+        <center><h2> Create Exam</h2>
+        <br>
+        {% if message and not done %}
+            <div style="padding: 10px; border-radius: 10px; width: fit-content"
+                 class="tab-pane alert-danger text-center">
+                <h5>{{ message }}</h5>
+            </div>
+        {% endif %}
+        {% if message and done %}
+            <div style="padding: 10px; border-radius: 10px;width: fit-content"
+                 class="tab-pane alert-success text-center">
+                <h5>{{ message }}</h5>
+            </div>
+        {% endif %}
+        <br>
+        </center>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+{#            {{ form.media }}#}
+            <center>
+                <button type="submit" name="exam-btn" class="btn btn-outline-primary">Create</button></center>
+    </form>
+    </div>
+
+
+{% endblock content %}

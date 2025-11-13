@@ -1,0 +1,114 @@
+{%  extends 'Base.html' %}
+{% block zero %}
+    {% load static %}
+    <main class="page lanidng-page">
+    <section class="portfolio-block block-intro" style="background-color:whitesmoke; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;">
+        <div class="container d-xl-flex align-items-xl-center">
+
+            <img style="width: 300px; height: 300px; padding: 30px" src="{% static "ExamManagement/img/quiz.png" %}" alt="My image">
+
+            <div class="about-me">
+                <p style="filter: brightness(0%);box-shadow: 0px 0px;">Create online quizzes Always wanted to make a quiz, but couldn't find an easy quiz creator to help you out? With our online quiz tool it’s easy to make a quiz in less than five minutes. Just follow these simple steps to create online
+                    quizzes with our online quiz software.<br></p><a class="btn btn-outline-primary" role="button" href="/signup">Get Started Today</a></div>
+        </div>
+    </section>
+    <section class="portfolio-block photography"></section>
+    <section class="portfolio-block skills">
+        <div class="container">
+            <div class="heading">
+                <h2>Special&nbsp; FEATURES</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-star-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Create</h3>
+                            <p class="card-text">Quickly create great looking tests using multiple question types and formatting options.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-lightbulb-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Publish<br></h3>
+                            <p class="card-text">Tests can either be published privately to a select group or open them up to everyone with a single link and registration page.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-gear-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Analyze<br></h3>
+                            <p class="card-text">Instantly marks and grades your tests. Powerful reports then allow you to perform in-depth analysis across all responses.<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-top: 45px;">
+            <div class="heading">
+                <h2 style="padding-top: 36px;">WHO USE THIS PLATFORM</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-star-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Individuals</h3>
+                            <p class="card-text">Create fun social quizzes that you can post on your website, blog or other social media site. If you prefer privacy the advanced email options allow you to quickly send private quizzes to your friends. The review feature
+                                allows your friends to review their answers after they have completed the quiz.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-lightbulb-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Teachers</h3>
+                            <p class="card-text">Quickly create courses or online tests for your students. You can make your test public or just publish it for your class or school with our private test options. The premium account will allow you to upload media and have
+                                unlimited questions. The auto-grading function will save you time and allow you to concentrate on what's important.<br></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card special-skill-item border-0">
+                        <div class="card-header bg-transparent border-0"><i class="icon ion-ios-gear-outline"></i></div>
+                        <div class="card-body">
+                            <h3 class="card-title">Organization</h3>
+                            <p class="card-text">Create online training and assessments to ensure your staff are always up to date with the right skills. The powerful reporting allows you to track your staff participation and progress. FlexiQuiz implements SSL encryption
+                                and offers public and private options so you can be sure your assessments are always secure.<br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<section class="portfolio-block website gradient">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-12 col-lg-5 offset-lg-1 text">
+                <h3>Access From Anywhere & Anytimes</h3>
+                <p></p>
+            </div>
+            <div class="row">
+                <div class="portfolio-laptop-mockup">
+                    <div class="screen" style="border-radius: 10px;">
+
+                        <div class="screen-content" style="border-radius: 10px; background-image:url(&quot;{% static "ExamManagement/assets/img/quizHome.png" %} &quot;);"></div>
+                    </div>
+                    <div class="keyboard"></div>
+                </div>
+                <div class="portfolio-phone-mockup" style="height: 210px; width: 100px;">
+                  <div class="phone-screen" style="border-color: #FFFF;  height: 180px; width: 85px;border-radius: 10; background-image:url(&quot;{% static "ExamManagement/assets/img/phonequiz.png" %} &quot;);">
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%  endblock zero %}
+

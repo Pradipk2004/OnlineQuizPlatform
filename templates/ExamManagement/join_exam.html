@@ -1,0 +1,32 @@
+{% extends 'UserManagement/user_dash_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <center>
+            <h2>JOIN EXAM</h2>
+            <br>
+            <br>
+            {% if notfound and message%}
+                <div style="padding: 10px; border-radius: 10px; width: fit-content" class="tab-pane alert-danger text-center">
+                    <h5>{{ message }}</h5>
+                </div>
+            {% endif %}
+            {% if not notfound and message  %}
+                <div style="padding: 10px; border-radius: 10px;width: fit-content" class="tab-pane alert-success text-center">
+                    <h5>{{ message }}</h5>
+                </div>
+            {% endif %}
+            <br>
+            <div style="border-radius: 15px;padding: 40px;padding-top: 50px;" class="shadow col-md-5 align-content-center card">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="text-muted">( Enter Exam Code to Join or Contact with your Examiner for Exam Code )</div>
+                    <br>
+                    <button style="border-radius: 5px; width: 100px" name="join_exam" type="submit" class="btn btn-primary">Join</button>
+                </form>
+            </div>
+        </center>
+    </div>
+
+{% endblock content %}

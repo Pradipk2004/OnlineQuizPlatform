@@ -1,0 +1,137 @@
+{% extends 'UserManagement/user_dash_base.html' %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    {% if examinee %}
+        <div class="container align-items-center">
+
+        <div class="container-fluid">
+        <div class="row" style="margin-left: 50px">
+            <h2> Participated Exams </h2>
+            <div style="margin-left: 425px" class="col-md-4 float-lg-right">
+                <form method="GET">
+                    {% csrf_token %}
+                    {{ form2 }}
+                    <input style="border-radius: 5px" class="btn btn-primary btn-sm" type="submit" value="Search">
+                    {#                <button type="submit" class="btn btn-primary">Search</button>#}
+                </form>
+            </div>
+        </div>
+
+        <br>
+        <div class="col row-cols-1 row-cols-md-0">
+        {% for item in exam %}
+            <div class="col-md-12">
+                <div class="card shadow" style="border-radius: 10px; margin: 5px">
+                {% if item.exam.isUpcoming %}
+                    <div style="border-radius:10px 10px 0px 0px;" class="card-header bg-info text-white">Upcoming Exam
+                    </div>
+                {% elif not item.submit %}
+                <div style="border-radius:10px 10px 0px 0px;" class="card-header bg-warning ">Submission Pending</div>
+                {% elif item.submit %}
+                    <div style="border-radius:10px 10px 0px 0px;" class="card-header bg-success text-white">Submission Completed
+                    </div>
+                {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.exam.exam_title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ item.exam.examiner.user.get_full_name }}</h6>
+                        <p class="card-text font-weight-normal">
+                            Exam Code: {{ item.exam.exam_code }}<br>
+                            Exam Marks: {{ item.exam.exam_marks }}<br>
+                            Exam Date Time: {{ item.exam.exam_date_time }}<br>
+                            Exam Duration: {{ item.exam.exam_duration }} Mins<br>
+
+                    {% if item.exam.isStarted %}
+                        Exam Question: <a href="{{ item.exam.exam_question.url }}"> Download</a><br>
+                        {% if item.submit %}
+                            {% if item.hasReturnAttachment %}
+                                Return Attachment: <a href="{{ item.ReturnAttachment }}"> Download</a><br><br>
+                            {% else %}
+                                <br>
+                            {% endif %}
+                            <a class='btn btn-primary 'href="/indivresult/{{item.exam.id}}">View Result</a>
+                            <a style="margin: 30px" class='btn btn-primary ' href="/examranks/{{ item.exam.id }}">View Ranking</a>
+                        {% endif %}
+                        {% if not item.submit %}
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form| crispy }} <br>
+                                <input type="hidden" name="exam_id" value="{{ item.exam.id }}">
+                                <button type="submit" name="sub-btn" class="btn btn-warning">Submit Answer</button>
+                            </form>
+                        {% endif %}
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+        </div>
+        </div>
+        </div>
+        </div>
+            {% else %}
+        <div class="container align-items-center">
+        <div class="container-fluid">
+            <div class="row" style="margin-left: 50px">
+                <h2> Created Exams </h2>
+                <div style="margin-left: 470px" class="col-md-4 float-lg-right">
+                    <form method="GET">
+                        {% csrf_token %}
+                        {{ form2 }}
+                        <input style="border-radius: 5px" class="btn btn-primary btn-sm" type="submit" value="Search">
+                        {#                <button type="submit" class="btn btn-primary">Search</button>#}
+                    </form>
+                </div>
+            </div>
+        <br>
+        <div class="col row-cols-1 row-cols-md-0">
+            {% for item in exam %}
+                <div class="col mb-12">
+                    <div class="card shadow" style="border-radius: 10px; margin: 5px">
+                        {% if item.isRunning %}
+                        <div style="border-radius: 10px 10px 0px 0px" class="card-header bg-warning">Running Exam</div>
+                        {% elif item.isUpcoming %}
+                            <div style="border-radius: 10px 10px 0px 0px" class="card-header bg-info text-white ">
+                                Upcoming Exam
+                            </div>
+                        {% else %}
+                             <div style="border-radius: 10px 10px 0px 0px" class="card-header bg-success text-white ">Exam Ended</div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.exam_title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ item.examiner }}</h6>
+                            <p class="card-text">
+                                <span class="text-body">Exam Code:</span> {{ item.exam_code }}<br>
+                                <span class="text-body">Exam Marks:</span> {{ item.exam_marks }}<br>
+                                <span class="text-body">Exam Date Time:</span> {{ item.exam_date_time }}<br>
+                                <span class="text-body">Exam Duration: </span>{{ item.exam_duration }}<br>
+                                <span class="text-body">Participant:</span> {{ item.getParticipant }}<br>
+                                {% if item.isStarted %}
+
+                                <span class="text-body">Submitted:</span> {{ item.getSubmission }}<br>
+                            </p>
+                                <a href="/participant/{{ item.id }}" class="btn btn-primary">View Participant</a>
+                                <a style="margin-left: 30px" href="/showsubmissions/{{ item.id }}" class="btn btn-primary">View Submissions</a>
+                                <a style="margin-left: 30px" class="btn btn-primary" href="/examresult/{{ item.id }}">View Results</a>
+                                <a style="margin-left: 30px" class="btn btn-primary" href="/examranks/{{ item.id }}">View Ranking</a>
+                                <a style="margin-left: 30px" class="btn btn-primary" href="/analyse/{{ item.id }}">Analyse</a>
+                                {% else %}
+                                    <form style="padding: 0px 0px 0px 0px;margin: 0px" method="POST">
+                                    {% csrf_token %}
+                                        <a href="/participant/{{ item.id }}" class="btn btn-primary">View Participant</a>
+                                        <input type="hidden" name="del_exam_id" value="{{ item.id }}">
+                                        <button style="margin: 30px" type="submit" class="btn btn-danger">Delete Exam</button>
+                                    </form>
+                                {% endif %}
+                        </div>
+                </div>
+                </div>
+                <br>
+            {% endfor %}
+        </div>
+        </div>
+        </div>
+        </div>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "ExamManagement/assets/bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "ExamManagement/assets/bootstrap/css/custom.css" %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Acme">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+     <!--
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    -->
+    <meta charset="UTF-8">
+    <title>Online Quiz Platform</title>
+</head>
+<body>
+<section>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container"><a class="navbar-brand logo" href="/"
+                                  style="font-size: 43px;font-family: Lato, sans-serif;">Online Quiz Platfrom</a>
+             <button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span
+                    class="navbar-toggler-icon"></span></button>
+            <div
+                    class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        {% if not examiner %}
+                            <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link active" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="examdropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Exams
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" name="join_exam" href="/joinexam">Join Exam</a>
+                                    <a class="dropdown-item" name="exam_history" href="/examshistory">Exam History</a>
+                                    <a class="dropdown-item" name="exam_results" href="/results">Exam Results</a>
+
+                                    {#                            <a class="dropdown-item" href="#">Something else here</a>#}
+                                </div>
+                            </li>
+{#                            <li class="nav-item" role="presentation"><a class="nav-link active"#}
+{#                                                                        href="/profile">Profile</a>#}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/profile" id="profiledropdown"
+                                   role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ request.user.username }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" type="submit" name="profile" value="True" href="/profile">Profile</a>
+                                    <a class="dropdown-item" type="submit" name="changepass" value="True" href="/change-password">Change Password</a>
+                                    <a class="dropdown-item" type="submit" name="logout" value="True" href="/logout">Logout</a>
+
+                                </div>
+                            </li>
+{#                            <li class="nav-item" role="presentation"><a class="nav-link" href="/logout">Logout</a>#}
+{#                            </li>#}
+{#                            <li role="button"#}
+{#                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-top: 10px" class="nav-item"><div style="border-radius: 30px" class="card"><a style="font-size:medium; color: #1a61e8;padding-left: 10px;padding-right: 10px"#}
+{#                                                                                                class="ion-person">  {{ request.user.username }}</a></div></li>#}
+                        {% else %}
+                            <li class="nav-item" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link active" href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="examdropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Exams
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" name="create_exam" href="/addexam">Create Exam</a>
+                                    <a class="dropdown-item" name="exam_history" href="/examshistory">Exam History</a>
+                                    <a class="dropdown-item" name="exam_results" href="/results">Exam Results</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="/profile" id="profiledropdown"
+                                   role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{ request.user.username }}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" type="submit" name="profile" value="True" href="/profile">Profile</a>
+                                    <a class="dropdown-item" type="submit" name="changepass" value="True"
+                                       href="/change-password">Change Password</a>
+                                    <a class="dropdown-item" type="submit" name="logout" value="True" href="/logout">Logout</a>
+
+                                </div>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item" name="home" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+                        <li class="nav-item" name="signup" role="presentation"><a class="nav-link" href="/signup">Sign Up</a></li>
+                        <li class="nav-item" name="login" role="presentation"><a class="nav-link" href="/login">Login</a></li>
+                        <li class="nav-item" name="contact" role="presentation"><a class="nav-link" href="/contact">Contact</a></li>
+                        <li class="nav-item" name="about" role="presentation"><a class="nav-link" href="/">About</a></li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</section>
+<div style="padding-top: 50px">
+{% block zero %}
+ <div style="padding-top: 150px">
+    {%  block content %}
+    {%  endblock content %}
+ </div>
+{% endblock zero %}
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<footer class="page-footer" style="float: bottom">
+    <div class="container">
+       <!-- <div class="links"><a href="#">About me</a><a href="#">Contact me</a><a href="#">Projects</a></div> -->
+        <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2025 Online Quiz Platform</p>
+</footer>
+<script>
+    function myGeeks() {
+        var g = document.getElementById("agree").required;
+        document.getElementById("agree").innerHTML = g;
+    }
+</script>
+<script>
+    jQuery("#confirm").click(function () {
+        $("<div></div>").appendTo('body')
+            .html('<div><h3> write your message for confirm dialog</h3></div>')
+            .dialog({
+                title: "Confotm Dialog",
+                width: 500, height: 300,
+                modal: true,
+                resizable: false,
+                show: {effect: 'drop', direction: "left"},
+                hide: {effect: 'blind'}
+
+                buttons: {
+                    Yes: function () {
+                        jQuery.ajax({
+                            type: "POST", //post data
+                            data: {'key': key}, //if you want to send any data to view
+                            url: '/get_viewerModal/' // your url that u write in action in form tag
+                        }).done(function (result) {
+                            alert("am done") //this will executes after your view executed
+                        })
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+    });
+    </script >
+
+    <script src="{% static "ExamManagement/assets/js/jquery.min.js" %}"></script>
+<script src="{% static "ExamManagement/assets/bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+<script src="{% static  "ExamManagement/assets/js/theme.js" %}"></script>
+</body>
+
+</html>

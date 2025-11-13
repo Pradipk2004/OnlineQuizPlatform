@@ -1,0 +1,22 @@
+{% extends 'Base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <section style="align-content: center">
+        <center>
+            <h2>REGISTER HERE!</h2><br>
+        <div class="card col-md-5 shadow-lg" style="align-content: start;padding: 50px; border-radius: 10px">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}<br>
+                <input type="checkbox" name="checkbox" value="check" id="agree" required/> I have read and agree to the Terms and
+                Conditions and Privacy Policy
+                <br>
+                <br>
+                <button style="border-radius: 15px" type="submit" name="signup_btn" class="btn btn-primary">Sign Up</button>
+            </form>
+        </div>
+        </center>
+    </section>
+
+
+{% endblock content %}
